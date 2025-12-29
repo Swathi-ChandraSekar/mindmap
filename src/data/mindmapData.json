@@ -1,0 +1,30 @@
+{
+  "id": "root",
+  "label": "World of Coffee",
+  "summary": "Complete coffee knowledge map",
+  "description": "Covers beans, brewing, roasting, and culture.",
+  "children": [
+    {
+      "id": "beans",
+      "label": "Coffee Beans",
+      "summary": "Types of beans",
+      "description": "Arabica, Robusta, Liberica",
+      "children": [
+        {
+          "id": "arabica",
+          "label": "Arabica",
+          "summary": "Smooth & aromatic",
+          "description": "Most popular bean variety",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "brewing",
+      "label": "Brewing Methods",
+      "summary": "How coffee is prepared",
+      "description": "Espresso, Pour Over, French Press",
+      "children": []
+    }
+  ]
+}
