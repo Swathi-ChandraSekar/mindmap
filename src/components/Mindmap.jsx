@@ -11,14 +11,10 @@ import ReactFlow, {
 import 'reactflow/dist/style.css'
 import { toPng } from 'html-to-image'
 
-/* ---------------- CONSTANTS ---------------- */
-
 const NODE_WIDTH = 180
 const LEVEL_HEIGHT = 140
 const SIBLING_GAP = 40
-
-/* ---------------- LAYOUT HELPERS ---------------- */
-
+ 
 function getSubtreeWidth(node, collapsed) {
   if (collapsed.has(node.id) || !node.children?.length) {
     return NODE_WIDTH
@@ -88,9 +84,6 @@ function buildTree(
     offsetX += width + SIBLING_GAP
   })
 }
-
-/* ---------------- FLOW CONTENT ---------------- */
-
 function FlowContent({
   treeData,
   onNodeSelect,
@@ -132,12 +125,9 @@ function FlowContent({
       }
     }
   })
-
   const onNodeClick = (_, node) => {
     onNodeSelect(node)
-
     if (!node.data.hasChildren) return
-
     setCollapsed(prev => {
       const next = new Set(prev)
       next.has(node.id)
@@ -146,9 +136,6 @@ function FlowContent({
       return next
     })
   }
-
-  /* --------- EXPORT (EDGES INCLUDED) --------- */
-
   const exportImage = async () => {
     const bounds = getNodesBounds(getNodes())
     const viewport = getViewportForBounds(
@@ -179,7 +166,6 @@ function FlowContent({
     a.download = 'mindmap.png'
     a.click()
   }
-
   return (
     <>
       <button
@@ -201,9 +187,6 @@ function FlowContent({
     </>
   )
 }
-
-/* ---------------- MAIN COMPONENT ---------------- */
-
 export default function MindMap(props) {
   return (
     <div style={{ height: '85vh' }}>
