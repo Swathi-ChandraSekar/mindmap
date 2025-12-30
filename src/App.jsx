@@ -1,61 +1,59 @@
-import { useState } from "react";
-import Mindmap from "./components/Mindmap";
-import Sidebar from "./components/Sidebar";
-import Breadcrumb from "./components/Breadcrumb";
-import "./index.css";
+import { useEffect, useState } from 'react'
+import MindMap from './components/Mindmap'
+import Sidebar from './components/Sidebar'
+import SearchBar from './components/SearchBar'
+import data from './data/roadmapData.json'
 
 export default function App() {
-  const [selected, setSelected] = useState(null);
-  const [breadcrumb, setBreadcrumb] = useState([]);
-  const [dark, setDark] = useState(true);
+  const [treeData, setTreeData] = useState(data)
+  const [selectedNode, setSelectedNode] = useState(null)
+  const [search, setSearch] = useState("")
+  const [theme, setTheme] = useState("dark")
 
-  /**
-   * Called when a node is clicked in Mindmap
-   */
-  const handleSelect = (node) => {
-    setSelected(node);
-
-    // Build breadcrumb from parent chain
-    const path = [];
-    let current = node;
-
-    while (current) {
-      path.unshift(current.label);
-      current = current.parent;
-    }
-
-    setBreadcrumb(path);
-  };
+  useEffect(() => {
+    document.body.className = theme
+  }, [theme])
 
   return (
-    <div className={dark ? "dark" : "light"}>
-      {/* Header */}
-      <header>
-        <h1>Interactive Mindmap</h1>
+    <div className="container-fluid vh-100">
+      {/* Toolbar */}
+      <div className="d-flex gap-2 p-2 border-bottom">
+        <button className="btn btn-primary btn-sm" onClick={() => setTreeData({ ...treeData })}>
+          Expand All
+        </button>
 
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={dark}
-            onChange={() => setDark(!dark)}
+        <button className="btn btn-secondary btn-sm">
+          Collapse All
+        </button>
+
+        <button
+          className="btn btn-outline-warning btn-sm"
+          onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}
+        >
+          {theme === "dark" ? "☀ Light" : "🌙 Dark"}
+        </button>
+      </div>
+
+      <SearchBar search={search} setSearch={setSearch} />
+
+      <div className="row h-100">
+        <div className="col-9 border-end">
+          <MindMap
+            treeData={treeData}
+            setTreeData={setTreeData}
+            onNodeSelect={setSelectedNode}
+            search={search}
+            theme={theme}
           />
-          <span className="slider" />
-        </label>
-      </header>
-
-      {/* Breadcrumb */}
-      <Breadcrumb items={breadcrumb} />
-
-      {/* Main Layout */}
-      <div className="layout">
-        <div className="canvas">
-          <Mindmap onSelect={handleSelect} />
         </div>
-
-        <aside>
-          <Sidebar node={selected} />
-        </aside>
+        <div className="col-3">
+          <Sidebar
+            node={selectedNode}
+            treeData={treeData}
+            setTreeData={setTreeData}
+          />
+        </div>
       </div>
     </div>
-  );
+  )
 }

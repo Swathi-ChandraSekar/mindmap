@@ -1,0 +1,46 @@
+{
+  "id": "root",
+  "label": "Web Development Roadmap",
+  "description": "Complete roadmap to become a full stack developer",
+  "children": [
+    {
+      "id": "frontend",
+      "label": "Frontend",
+      "description": "Client-side development",
+      "children": [
+        {
+          "id": "html",
+          "label": "HTML",
+          "description": "Structure of the web"
+        },
+        {
+          "id": "css",
+          "label": "CSS",
+          "description": "Styling and layouts"
+        },
+        {
+          "id": "js",
+          "label": "JavaScript",
+          "description": "Logic & interactivity"
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "label": "Backend",
+      "description": "Server-side development",
+      "children": [
+        {
+          "id": "node",
+          "label": "Node.js",
+          "description": "JavaScript runtime"
+        },
+        {
+          "id": "db",
+          "label": "Databases",
+          "description": "Store application data"
+        }
+      ]
+    }
+  ]
+}
